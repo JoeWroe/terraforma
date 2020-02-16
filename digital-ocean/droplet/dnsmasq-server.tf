@@ -5,14 +5,14 @@ resource "digitalocean_droplet" "dnsmasq-server" {
     size 				= "s-1vcpu-1gb"
     private_networking 	= true
     ssh_keys 			= [
-		"var.ssh_fingerprint"
+		var.ssh_fingerprint
     ]
 	connection {
 		user 		= "root"
 		type 		= "ssh"
-		private_key = "file(var.pvt_key)"
+		private_key = file(var.pvt_key)
 		timeout 	= "2m"
-		host    	= "self.public_ip"
+		host    	= self.ipv4_address
 	}
 	provisioner "remote-exec" {
 		inline = [
